@@ -19,8 +19,8 @@
         </header>
         <input type="text" name="" id="" placeholder="Nama Lengkap">
         <input type="number" name="" id="" placeholder="NIM">
-        <select name="fakultas" id="fakultas">
-            <option value="" disabled selected>Fakultas</option>
+        <select name="prodi" id="prodi">
+            <option value="" disabled selected>Program Studi</option>
             <option value="Informatika">Informatika</option>
         </select>
         <input type="password" name="" id="" placeholder="Password">
