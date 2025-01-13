@@ -23,7 +23,6 @@
             <option value="" disabled selected>Fakultas</option>
             <option value="Informatika">Informatika</option>
         </select>
-        <input type="text" name="" id="" placeholder="Username">
         <input type="password" name="" id="" placeholder="Password">
         <input type="submit" value="Daftar">
         <p>Anda sudah punya akun? <a href="masuk.php">Masuk disini</a></p>

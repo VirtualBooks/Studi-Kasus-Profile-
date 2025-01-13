@@ -17,9 +17,9 @@
             <img src="assets/img/masuk.svg" alt="">
             <h1>Masuk</h1>
         </header>
-        <input type="text" name="" id="" placeholder="Username">
+        <input type="text" name="" id="" placeholder="NIM">
         <input type="password" name="" id="" placeholder="Password">
-        <input type="submit" value="Daftar">
+        <input type="submit" value="Masuk">
         <p>Belum punya akun? <a href="index.php">Daftar disini</a></p>
     </form>
     <img src="assets/img/reglog.png" alt="pic of portal" class="side-pic">

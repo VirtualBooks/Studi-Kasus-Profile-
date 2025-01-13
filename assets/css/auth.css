@@ -55,6 +55,9 @@ input[type="submit"] {
   font-weight: 700;
   color: white;
 }
+input[type="submit"]:hover {
+  background-color: #704089;
+}
 select {
   background-color: #e7e7e7;
   width: 384px;
