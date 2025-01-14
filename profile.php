@@ -1,34 +1,36 @@
 <?php
+// Menghubungkan dengan file koneksi.php untuk mengakses database
 require_once "koneksi.php";
 
-if(!isset($_SESSION['nim']))
-{
+// Mengecek apakah pengguna sudah login
+if (!isset($_SESSION['nim'])) {
     echo "
     <script>alert('Anda harus login terlebih dahulu')</script>
     <script>window.location = 'masuk.php'</script>
     ";
 }
 
-if ($_SESSION['role'] != 'user')
-{
+// Mengecek apakah pengguna memiliki role 'user'
+if ($_SESSION['role'] != 'user') {
     echo "
     <script>alert('Anda tidak memiliki akses ke halaman ini')</script>
     <script>window.location = 'dashboard.php'</script>
     ";
 }
 
+// Mengambil data pengguna berdasarkan NIM dari session
 $sql = "SELECT * FROM data_mahasiswa WHERE nim = '$_SESSION[nim]'";
 $result = $koneksi->query($sql);
 $data = $result->fetch_assoc();
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font dan CSS untuk tampilan -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
@@ -39,19 +41,26 @@ $data = $result->fetch_assoc();
 
 <body>
     <?php
+    // Menyisipkan navbar dari template eksternal
     include "templates/navbar.php";
     ?>
+
     <div class="container">
         <header>
+            <!-- Menampilkan foto profil pengguna, default jika kosong -->
             <img src="<?= !empty($data['path_foto']) ? htmlspecialchars($data['path_foto']) : 'assets/img/user.png' ?>" alt="">
             <div>
+                <!-- Menampilkan informasi dasar pengguna -->
                 <h2><?= htmlspecialchars($data['fullname']) ?></h2>
                 <p><?= htmlspecialchars($data['nim']) ?></p>
                 <p><?= htmlspecialchars($data['prodi']) ?></p>
             </div>
         </header>
+
+        <!-- Form untuk edit profil -->
         <form action="edit_profile.php" method="post" enctype="multipart/form-data">
             <main>
+                <!-- Baris pertama informasi pengguna -->
                 <div class="row">
                     <div class="info">
                         <p>Nama Lengkap</p>
@@ -70,6 +79,8 @@ $data = $result->fetch_assoc();
                         <input type="number" name="nik" value="<?= !empty($data['nik']) ? htmlspecialchars($data['nik']) : '' ?>">
                     </div>
                 </div>
+
+                <!-- Baris kedua informasi pengguna -->
                 <div class="row">
                     <div class="info">
                         <p>Tempat Lahir</p>
@@ -84,6 +95,8 @@ $data = $result->fetch_assoc();
                         <input type="number" name="no_kk" value="<?= !empty($data['no_kk']) ? htmlspecialchars($data['no_kk']) : '' ?>">
                     </div>
                 </div>
+
+                <!-- Baris ketiga informasi pengguna -->
                 <div class="row">
                     <div class="info">
                         <p>Jenis Kelamin</p>
@@ -107,9 +120,11 @@ $data = $result->fetch_assoc();
                     </div>
                     <div class="info">
                         <p>Kewarganegaraan</p>
-                        <input type="text" nama="kewarganegaraan" value="<?= !empty($data['kewarganegaraan']) ? htmlspecialchars($data['kewarganegaraan']) : '' ?>">
+                        <input type="text" name="kewarganegaraan" value="<?= !empty($data['kewarganegaraan']) ? htmlspecialchars($data['kewarganegaraan']) : '' ?>">
                     </div>
                 </div>
+
+                <!-- Informasi alamat -->
                 <div class="row">
                     <div class="info-alamat">
                         <p>Jalan</p>
@@ -124,6 +139,8 @@ $data = $result->fetch_assoc();
                         <input type="number" name="rw" value="<?= !empty($data['rw']) ? htmlspecialchars($data['rw']) : '' ?>">
                     </div>
                 </div>
+
+                <!-- Informasi tambahan -->
                 <div class="row">
                     <div class="info">
                         <p>Kelurahan</p>
@@ -138,6 +155,8 @@ $data = $result->fetch_assoc();
                         <input type="number" name="kode_pos" value="<?= !empty($data['kode_pos']) ? htmlspecialchars($data['kode_pos']) : '' ?>">
                     </div>
                 </div>
+
+                <!-- Dokumen lainnya -->
                 <div class="row">
                     <div class="info">
                         <p>NISN</p>
@@ -152,6 +171,8 @@ $data = $result->fetch_assoc();
                         <input type="number" name="no_bpjs" value="<?= !empty($data['no_bpjs']) ? htmlspecialchars($data['no_bpjs']) : '' ?>">
                     </div>
                 </div>
+
+                <!-- Upload foto -->
                 <div class="row">
                     <div class="info-foto">
                         <p>Upload Foto</p>
@@ -163,5 +184,4 @@ $data = $result->fetch_assoc();
         </form>
     </div>
 </body>
-
 </html>

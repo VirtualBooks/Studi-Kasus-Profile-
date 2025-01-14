@@ -1,4 +1,5 @@
 <?php
+// Menghubungkan dengan file koneksi.php untuk mengakses database
 require_once "koneksi.php";
 
 // Mengecek apakah pengguna sudah login
@@ -56,27 +57,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($file_foto)) {
         $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
         $fileExtension = strtolower(pathinfo($file_foto, PATHINFO_EXTENSION));
+        $fileSize = $_FILES['file_foto']['size'];
 
         if (in_array($fileExtension, $allowedExtensions)) {
-            $uploadDir = 'uploads/';
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0777, true);  // Buat folder jika belum ada
-            }
-
-            $newFileName = uniqid('foto_', true) . '.' . $fileExtension;
-            $path_foto = $uploadDir . $newFileName;
-
-            if (!move_uploaded_file($_FILES['file_foto']['tmp_name'], $path_foto)) {
-                echo "<script>alert('Gagal mengupload foto.')</script>";
-            }else {
-                // Mengambil path foto sebelumnya dengan query
-                $sql = "SELECT path_foto FROM data_mahasiswa WHERE nim = '$nim'";
-                $result = $koneksi->query($sql);
-                $foto = $result->fetch_assoc();
-                // Menghapus foto lama 
-                if ($foto['path_foto'] != 'uploads/default.jpg') {
-                    unlink($foto['path_foto']); // Hapus foto lama
+            if ($fileSize <= 2 * 1024 * 1024) { // 2 MB
+                $uploadDir = 'uploads/';
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);  // Buat folder jika belum ada
                 }
+
+                $newFileName = uniqid('foto_', true) . '.' . $fileExtension;
+                $path_foto = $uploadDir . $newFileName;
+
+                if (!move_uploaded_file($_FILES['file_foto']['tmp_name'], $path_foto)) {
+                    echo "<script>alert('Gagal mengupload foto.')</script>";
+                } else {
+                    // Mengambil path foto sebelumnya dengan query
+                    $sql = "SELECT path_foto FROM data_mahasiswa WHERE nim = '$nim'";
+                    $result = $koneksi->query($sql);
+                    $foto = $result->fetch_assoc();
+                    // Menghapus foto lama 
+                    if ($foto['path_foto'] != 'uploads/default.jpg') {
+                        unlink($foto['path_foto']); // Hapus foto lama
+                    }
+                }
+            } else {
+                echo "<script>alert('Ukuran file foto tidak boleh lebih dari 2 MB.')</script>";
             }
         } else {
             echo "<script>alert('Ekstensi file foto tidak diperbolehkan.')</script>";
