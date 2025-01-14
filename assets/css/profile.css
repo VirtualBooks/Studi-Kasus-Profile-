@@ -107,6 +107,14 @@ input[type="file"] {
   gap: 0.5rem;
   width: 100%;
 }
+
+header img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 @media (max-width: 768px) {
   .container {
     width: 300px;

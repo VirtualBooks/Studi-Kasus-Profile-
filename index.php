@@ -1,3 +1,24 @@
+<?php
+require_once "koneksi.php";
+
+if (isset($_SESSION['nim']) && $_SESSION['role'] == 'user')
+{
+    echo "
+    <script>alert('Anda sudah login')</script>
+    <script>window.location = 'profile.php'</script>
+    ";
+}
+
+if (isset($_SESSION['nim']) && $_SESSION['role'] == 'admin')
+{
+    echo "
+    <script>alert('Anda sudah login')</script>
+    <script>window.location = 'dashboard.php'</script>
+    ";
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,18 +33,18 @@
 </head>
 
 <body>
-    <form action="" class="form">
+    <form action="auth_regis.php" method="post" class="form">
         <header>
             <img src="assets/img/daftar.svg" alt="">
             <h1>Daftar</h1>
         </header>
-        <input type="text" name="" id="" placeholder="Nama Lengkap">
-        <input type="number" name="" id="" placeholder="NIM">
-        <select name="fakultas" id="fakultas">
-            <option value="" disabled selected>Fakultas</option>
+        <input type="text" name="fullname" id="" placeholder="Nama Lengkap" required>
+        <input type="number" name="nim" id="" placeholder="NIM" required>
+        <select name="prodi" id="prodi" required>
+            <option value="" disabled selected>Program Studi</option>
             <option value="Informatika">Informatika</option>
         </select>
-        <input type="password" name="" id="" placeholder="Password">
+        <input type="password" name="password" id="" placeholder="Password" required>
         <input type="submit" value="Daftar">
         <p>Anda sudah punya akun? <a href="masuk.php">Masuk disini</a></p>
     </form>

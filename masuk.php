@@ -1,3 +1,26 @@
+<?php
+require_once "koneksi.php";
+
+if (isset($_SESSION['nim']) && $_SESSION['role'] == 'user')
+{
+    echo "
+    <script>alert('Anda sudah login')</script>
+    <script>window.location = 'profile.php'</script>
+    ";
+}
+
+if (isset($_SESSION['nim']) && $_SESSION['role'] == 'admin')
+{
+    echo "
+    <script>alert('Anda sudah login')</script>
+    <script>window.location = 'dashboard.php'</script>
+    ";
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,13 +35,13 @@
 </head>
 
 <body>
-    <form action="" class="form">
+    <form action="auth_login.php" method="post" class="form">
         <header>
             <img src="assets/img/masuk.svg" alt="">
             <h1>Masuk</h1>
         </header>
-        <input type="text" name="" id="" placeholder="NIM">
-        <input type="password" name="" id="" placeholder="Password">
+        <input type="text" name="nim" id="" placeholder="NIM" required>
+        <input type="password" name="password" id="" placeholder="Password" required>
         <input type="submit" value="Masuk">
         <p>Belum punya akun? <a href="index.php">Daftar disini</a></p>
     </form>
