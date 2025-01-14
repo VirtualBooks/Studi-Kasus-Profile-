@@ -176,3 +176,13 @@ td {
   width: 24px;
   height: 24px;
 }
+@media (max-width: 768px) {
+  .container {
+    width: 364px;
+    padding: 0 1rem;
+  }
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+}

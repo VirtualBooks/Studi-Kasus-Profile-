@@ -6,6 +6,8 @@ password varchar(255) not null,
 role enum('admin','user')
 );
 
+insert users values('admin','admin','admin');
+
 create table data_mahasiswa(
 id int primary key auto_increment,
 nim varchar(20) not null,
